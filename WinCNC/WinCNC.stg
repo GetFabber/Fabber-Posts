@@ -1,28 +1,6 @@
 
-import "base"
-
-fileStart(context) ::= "<context.lineNumber>"
-
-newline(context) ::= "<\n><context.lineNumber>"
-
-start(context, machine) ::= "T1<newline(context)>M3<newline(context)>"
-
-stop(context, machine) ::= "M5"
-
-setUnits(context, units) ::= "<base:setUnits(context, units)><newline(context)><if(units.isInch)>G20<else><if(units.isMM)>G21<else><endif><endif><newline(context)>G90"
-
-xyCut(context, segment) ::= "G1 X<segment.x> Y<segment.y> F<context.feedrates.cutFeedrateXY>"
-
-zCut(context, segment) ::= "G1 Z<segment.z> F<context.feedrates.cutFeedrateZ>"
-
-xyJog(context, segment) ::= "G0 X<segment.x> Y<segment.y> F<context.feedrates.jogFeedrateXY>"
-
-zJog(context, segment) ::= "G0 Z<segment.z> F<context.feedrates.jogFeedrateZ>"
-
-xyArcCut(context, segment) ::= "<if(segment.clockwise)>G02<else>G03<endif> X<segment.x> Y<segment.y> I<segment.i> J<segment.j> F<context.feedrates.cutFeedrateXY>"
-
-jogStart(context, segment) ::= "G1 X<segment.x> Y<segment.y> Z<segment.z> F<context.feedrates.jogFeedrateXY>"
-
-jogHome(context, segment) ::= "G53 Z0 F<context.feedrates.jogFeedrateXY>"
+import "gcode"
 
 lineComment() ::= "[ "
+
+start(context, machine) ::= "T1M6<newline(context)>M3<newline(context)>"
