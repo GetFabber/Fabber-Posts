@@ -1,0 +1,26 @@
+
+import "base"
+
+start(context, machine) ::= "SO, 1, 1"
+
+stop(context, machine) ::= "SO, 1, 0"
+
+setFeedrates(context, feedrates) ::= "VS, <feedrates.cutFeedrateXY>, <feedrates.cutFeedrateZ>, , , <feedrates.jogFeedrateXY>, <feedrates.jogFeedrateZ><newline(context)>TR, <feedrates.spindleSpeed>"
+
+setUnits(context, units) ::= "<base:setUnits(context, units)><newline(context)><lineComment()>UNITS:<if(units.isInch)>Inches<else><if(units.isMM)>MM<else>UNKNOWN<endif><endif><newline(context)>SA"
+
+xyCut(context, segment) ::= "M2, <segment.x>, <segment.y>"
+
+zCut(context, segment) ::= "MZ, <segment.z>"
+
+xyJog(context, segment) ::= "J2, <segment.x>, <segment.y>"
+
+zJog(context, segment) ::= "JZ, <segment.z>"
+
+xyArcCut(context, segment) ::= "CG, , <segment.x>, <segment.y>, <segment.i>, <segment.j>, T, <if(segment.clockwise)>1<else>-1<endif>"
+
+jogStart(context, segment) ::= "J3, <segment.x>, <segment.y>, <segment.z>"
+
+jogHome(context, segment) ::= "JH"
+
+lineComment() ::= "' "
