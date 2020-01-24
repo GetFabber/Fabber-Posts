@@ -5,7 +5,8 @@ start(context, machine) ::= "SO, 1, 1"
 
 stop(context, machine) ::= "SO, 1, 0"
 
-setFeedrates(context, feedrates) ::= "VS, <feedrates.cutFeedrateXY>, <feedrates.cutFeedrateZ>, , , <feedrates.jogFeedrateXY>, <feedrates.jogFeedrateZ><newline(context)>TR, <feedrates.spindleSpeed>"
+<!setFeedrates(context, feedrates) ::= "VS, <feedrates.cutFeedrateXY>, <feedrates.cutFeedrateZ>, , , <feedrates.jogFeedrateXY>, <feedrates.jogFeedrateZ><newline(context)>TR, <feedrates.spindleSpeed>"
+The above line has been commented out because ShopBot takes speed ONLY in Inches Per Second, NOT inches per minute. Luckily for us users can (and do) set this on their machine directly>!
 
 setUnits(context, units) ::= "<base:setUnits(context, units)><newline(context)><lineComment()>UNITS:<if(units.isInch)>Inches<else><if(units.isMM)>MM<else>UNKNOWN<endif><endif><newline(context)>SA"
 
