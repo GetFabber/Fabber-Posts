@@ -9,7 +9,7 @@ start(context, machine) ::= "T1<newline(context)>M3<newline(context)>G17<newline
 
 stop(context, machine) ::= "M5"
 
-setUnits(context, units) ::= "<base:setUnits(context, units)><newline(context)><if(units.isInch)>G20<else><if(units.isMM)>G21<else><endif><endif><newline(context)>G90"
+setUnits(context, units) ::= "<units.units:{u|<lineComment()>Unit: <u.unit>, Precision: <u.precision><lineCommentEnd()><newline(context)>}><newline(context)><if(units.isInch)>G20<else><if(units.isMM)>G21<else><endif><endif><newline(context)>G90"
 
 xyCut(context, segment) ::= "G1 X<segment.x> Y<segment.y> F<context.feedrates.cutFeedrateXY>"
 
