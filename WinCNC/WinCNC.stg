@@ -2,4 +2,4 @@ import "gcode"
 
 lineComment() ::= "[ "
 
-start(context, machine) ::= "T1M6<newline(context)>M3<newline(context)>"
+start(context, machine) ::= "T1M6<newline(context)>"
