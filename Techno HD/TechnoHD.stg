@@ -1,4 +1,2 @@
 import "gcode"
 
-start(context, machine) ::= "T1M6<newline(context)>G17<newline(context)>"
-
