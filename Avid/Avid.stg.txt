@@ -1,0 +1,31 @@
+import "base"
+
+fileStart(context) ::= "<context.lineNumber>"
+
+newline(context) ::= ""
+
+start(context, machine) ::= "G00G20G17G90G40G49G80<newline(context)>G70G91.1<newline(context)>M07<newline(context)>G00G43Z1.5000H1<newline(context)>G94<newline(context)>"
+
+setFeedrates(context, feedrates) ::= "M3 <feedrates.spindleSpeed><newline(context)>"
+
+stop(context, machine) ::= "M05<newline(context)>M09<newline(context)>M30<newline(context)>%<newline(context)>"
+
+setUnits(context, units) ::= "<units.units:{u|<lineComment()>Unit: <u.unit>, Precision: <u.precision><lineCommentEnd()><newline(context)>}><newline(context)><if(units.isInch)>G20<else><if(units.isMM)>G21<else><endif><endif><newline(context)>G90"
+
+xyCut(context, segment) ::= "G1 X<segment.x> Y<segment.y> F<context.feedrates.cutFeedrateXY>"
+
+zCut(context, segment) ::= "G1 Z<segment.z> F<context.feedrates.cutFeedrateZ>"
+
+xyJog(context, segment) ::= "G0 X<segment.x> Y<segment.y> F<context.feedrates.jogFeedrateXY>"
+
+zJog(context, segment) ::= "G0 Z<segment.z> F<context.feedrates.jogFeedrateZ>"
+
+xyArcCut(context, segment) ::= "<if(segment.clockwise)>G2<else>G3<endif> X<segment.x> Y<segment.y> I<segment.i> J<segment.j> F<context.feedrates.cutFeedrateXY>"
+
+jogStart(context, segment) ::= "G0 X<segment.x> Y<segment.y> Z<segment.z> F<context.feedrates.jogFeedrateXY>"
+
+jogHome(context, segment) ::= "G53 Z0 F<context.feedrates.jogFeedrateXY>"
+
+lineComment() ::= "( "
+
+lineCommentEnd() ::= " )"
