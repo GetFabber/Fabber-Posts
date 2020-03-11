@@ -1,2 +1,10 @@
 import "gcode"
 
+fileStart(context) ::= ""
+newline(context) ::= "<\n>"
+setUnits(context, units) ::= "<if(units.isInch)>G20<else><if(units.isMM)>G21<else><endif><endif><newline(context)>G90"
+lineComment() ::= ""
+preamble(context, user) ::= ""
+toolpathgroups(context, toolpath) ::= "<toolpath.groups:{g|<toolpathgroup(context, g)><newline(context)>}>"
+toolpathgroup(context, g) ::= "<newline(context)><g.features:{f|<feature(context, f)><newline(context)>}>"
+feature(context, f) ::= "<f.segments:{seg|<segment(context, seg, seg.type)><newline(context)>}>"
