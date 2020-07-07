@@ -1,0 +1,6 @@
+import "gcode"
+
+start(context, machine) ::= 
+"%<newline(context)>T1M6<newline(context)>G0 g17 g20 g90 g40 g64 p0.001<newline(context)>G0 G53 Z0<newline(context)>G0 X0 Y0 M03 <spindle speed<newline(context)>M0(MSG, Click 'Continue' when the spindle is up to speed<newline(context)>"
+
+stop(context, machine) ::= "M5<newline(context)>G0 g53 z0<newline(context)>M5<newline(context)>G0 X0 Y0<newline(context)>M2M5<newline(context)>"
